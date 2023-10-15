@@ -29,8 +29,8 @@ public class Bird {
         return timesObserved;
     }
 
-    public void setTimesObserved(int timesObserved) {
-        this.timesObserved = timesObserved;
+    public void observed() {
+        ++this.timesObserved;
     }
 
     @Override

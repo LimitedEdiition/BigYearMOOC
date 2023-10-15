@@ -17,9 +17,13 @@ public class UserInterface {
                 break;
             } else if(input.equalsIgnoreCase("Add")) {
                 addBirdName();
-                continue;
+                //continue;
             } else if(input.equalsIgnoreCase("All")) {
                 printAll(database);
+            } else if(input.equalsIgnoreCase("Observation")) {
+                addObservation();
+            } else if(input.equalsIgnoreCase("One")) {
+                getSingleBirdInfo();
             } else {
                 System.out.println("Command Not Found! Try Again!");
                 continue;
@@ -79,6 +83,58 @@ public class UserInterface {
                 System.out.println(bird);
             }
         }
+    }
+
+    public void addObservation() {
+        while(true) {
+            System.out.print("Bird? ");
+            String birdName = scanner.nextLine();
+            if(birdName.isEmpty()) {
+                System.out.println("Please enter a name!");
+                continue;
+            } else{
+                if(checkIfNameInDatabase(database,birdName)) {
+                    Bird observedBird = database.get(getIndexOfSpecificBird(birdName));
+                    observedBird.observed();
+                    break;
+                } else {
+                    System.out.println("Not a bird!");
+                    break;
+                }
+            }
+        }
+    }
+
+    public void getSingleBirdInfo() {
+        while(true) {
+            System.out.print("Bird? ");
+            String birdName = scanner.nextLine();
+            if(birdName.isEmpty()) {
+                System.out.println("Please enter a name!");
+                continue;
+            } else {
+                if(checkIfNameInDatabase(database, birdName)) {
+                    Bird selectedBird = database.get(getIndexOfSpecificBird(birdName));
+                    System.out.print(selectedBird + "\n");
+
+                    break;
+                    // Not in DB
+                } else {
+                    System.out.println("Bird Not Found in the Database!");
+                    break;
+                }
+            }
+        }
+    }
+
+    public int getIndexOfSpecificBird(String birdName) {
+        int index = 0;
+        for(int i=0; i<database.size();i++) {
+            if(database.get(i).getName().equalsIgnoreCase(birdName)) {
+                index = i;
+            }
+        }
+        return index;
     }
 
 
